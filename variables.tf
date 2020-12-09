@@ -78,7 +78,7 @@ variable "gateway_subnet" {
 
 variable "enable_ptp_vpn" {
     type = bool
-    default = 0
+    default = false
     description = "Enables a point to point VPN on the VNET, requires additional variables with a ptp_vpn_ prefix."
 }
 

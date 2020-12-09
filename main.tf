@@ -79,7 +79,7 @@ resource "azurerm_subnet_network_security_group_association" "public_nsg_associa
 }
 
 resource "azurerm_local_network_gateway" "ptp_vpn_local_gw" {
-  count               = var.enable_ptp_vpn ? 1 : 0
+  count               = var.enable_ptp_vpn == true ? 1 : 0
   depends_on          = [azurerm_virtual_network.virtual_network]
   name                = var.ptp_vpn_remote_gw_name
   resource_group_name = azurerm_resource_group.vnet_rg.name

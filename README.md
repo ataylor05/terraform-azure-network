@@ -52,7 +52,7 @@ module "network" {
 
     gateway_subnet          = "10.0.255.0/24"
 
-    enable_ptp_vpn          = 1
+    enable_ptp_vpn          = true
     ptp_vpn_remote_gw_name  = "New York Office 1"
     ptp_vpn_remote_endpoint = "12.13.14.15"
     ptp_vpn_remote_network  = "192.168.0.0/24"
