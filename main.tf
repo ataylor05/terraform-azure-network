@@ -77,3 +77,13 @@ resource "azurerm_subnet_network_security_group_association" "public_nsg_associa
   subnet_id                 = azurerm_subnet.public_subnet.id
   network_security_group_id = azurerm_network_security_group.vnet_nsg.id
 }
+
+resource "azurerm_local_network_gateway" "ptp_vpn_local_gw" {
+  count               = var.enable_ptp_vpn ? 1 : 0
+  depends_on          = [azurerm_virtual_network.virtual_network]
+  name                = var.ptp_vpn_remote_gw_name
+  resource_group_name = azurerm_resource_group.vnet_rg.name
+  location            = var.region
+  gateway_address     = var.ptp_vpn_remote_endpoint
+  address_space       = [var.ptp_vpn_remote_network]
+}

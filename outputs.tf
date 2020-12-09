@@ -42,3 +42,9 @@ output "gateway_subnet_id" {
   value = azurerm_subnet.gateway_subnet.id
   description = "Azure subnet id for the VPN subnet."
 }
+
+output "ptp_vpn_local_gw_id" {
+  value = azurerm_local_network_gateway.ptp_vpn_local_gw.id
+  description = "Azure Local Gateway id for VPN."
+  depends_on = [azurerm_local_network_gateway.ptp_vpn_local_gw]
+}

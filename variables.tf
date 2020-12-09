@@ -73,5 +73,29 @@ variable "mgmt_subnet" {
 variable "gateway_subnet" {
     type = string
     default = "10.0.255.0/24"
-    description = "OPTIONAL: The CIDR block for the VPN subnet."
+    description = "The CIDR block for the VPN subnet."
+}
+
+variable "enable_ptp_vpn" {
+    type = bool
+    default = 0
+    description = "Enables a point to point VPN on the VNET, requires additional variables with a ptp_vpn_ prefix."
+}
+
+variable "ptp_vpn_remote_gw_name" {
+    type = string
+    default = "New York Office 1"
+    description = "OPTIONAL: A name for the remote gateway."
+}
+
+variable "ptp_vpn_remote_endpoint" {
+    type = string
+    default = "12.13.14.15"
+    description = "OPTIONAL: The IP address of the remote VPN endpoint."
+}
+
+variable "ptp_vpn_remote_network" {
+    type = string
+    default = "192.168.0.0/24"
+    description = "OPTIONAL: The CIDR block of the remote network."
 }
