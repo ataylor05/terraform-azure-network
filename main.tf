@@ -1,12 +1,24 @@
+provider "azurerm" {
+  features {}
+}
+
 resource "azurerm_resource_group" "vnet_rg" {
-  name     = "${var.vnet_name}-RG"
+  name     = "${var.environment_tag}-${var.region}-Network-RG"
   location = var.region
+
+  tags = {
+    environment = var.environment_tag
+  }
 }
 
 resource "azurerm_network_security_group" "vnet_nsg" {
-  name                = "${var.vnet_name}-NSG"
+  name                = "${var.vnet_name}-Public-Inbound-NSG"
   location            = var.region
   resource_group_name = azurerm_resource_group.vnet_rg.name
+
+  tags = {
+    environment = var.environment_tag
+  }
 }
 
 resource "azurerm_virtual_network" "virtual_network" {
@@ -63,23 +75,5 @@ resource "azurerm_subnet" "gateway_subnet" {
 resource "azurerm_subnet_network_security_group_association" "public_nsg_association" {
   depends_on                = [azurerm_subnet.gateway_subnet]
   subnet_id                 = azurerm_subnet.public_subnet.id
-  network_security_group_id = azurerm_network_security_group.vnet_nsg.id
-}
-
-resource "azurerm_subnet_network_security_group_association" "app_nsg_association" {
-  depends_on                = [azurerm_subnet_network_security_group_association.public_nsg_association]
-  subnet_id                 = azurerm_subnet.app_subnet.id
-  network_security_group_id = azurerm_network_security_group.vnet_nsg.id
-}
-
-resource "azurerm_subnet_network_security_group_association" "data_nsg_association" {
-  depends_on                = [azurerm_subnet_network_security_group_association.app_nsg_association]
-  subnet_id                 = azurerm_subnet.data_subnet.id
-  network_security_group_id = azurerm_network_security_group.vnet_nsg.id
-}
-
-resource "azurerm_subnet_network_security_group_association" "mgmt_nsg_association" {
-  depends_on                = [azurerm_subnet_network_security_group_association.data_nsg_association]
-  subnet_id                 = azurerm_subnet.mgmt_subnet.id
   network_security_group_id = azurerm_network_security_group.vnet_nsg.id
 }
