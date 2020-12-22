@@ -1,5 +1,5 @@
 # terraform-azure-network
-Terraform module to build network layer in Azure.  This module is intended to be used in Terraform Cloud and stored in a private registry.
+Terraform module to build the network layer in Azure.  This network layout is more traditional ideal for orgs with a single team or orgs that don't isolate by networks.
 
 ## Module examples
 Simple example<br>
@@ -52,9 +52,18 @@ module "network" {
 
     gateway_subnet          = "10.0.255.0/24"
 
-    enable_ptp_vpn          = true
-    ptp_vpn_remote_gw_name  = "New York Office 1"
-    ptp_vpn_remote_endpoint = "12.13.14.15"
-    ptp_vpn_remote_network  = "192.168.0.0/24"
+    enable_ptp_vpn              = true
+    virtual_network_gateway_sku = "VpnGw1"
+    ptp_vpn_psk                 = "password"
+    ptp_vpn_remote_gw_name      = "New-York-Office-1"
+    ptp_vpn_remote_endpoint     = "12.13.14.15"
+    ptp_vpn_remote_network      = "192.168.0.0/24"
+    ptp_vpn_ike_encryption      = "AES256"
+    ptp_vpn_ike_integrity       = "SHA256"
+    ptp_vpn_dh_group            = "DHGroup2"
+    ptp_vpn_ipsec_encryption    = "GCMAES256"
+    ptp_vpn_ipsec_integrity     = "GCMAES256"
+    ptp_vpn_pfs_group           = "PFS2"
+    ptp_vpn_sa_lifetime         = "3600"
 }
 </pre><br><br>
