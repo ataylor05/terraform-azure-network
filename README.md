@@ -1,5 +1,5 @@
 # terraform-azure-network
-Terraform module to build the network layer in Azure.  This network layout is more traditional ideal for orgs with a single team or orgs that don't isolate by networks.
+Terraform module to build the network layer in Azure.  This is a more traditional layout ideal for orgs with a single team or orgs that don't isolate by networks.
 
 ## Module examples
 Simple example<br>
